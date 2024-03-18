@@ -273,11 +273,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <circle id="standby" cx="220" cy="260" r="3.5" fill="${data.inverterStateColour}"/>
                     <circle id="bat" cx="${data.compactMode ? '238.5' : '162'}"
                             cy="${data.compactMode
-                                    ? '326'
-                                    : !config.battery.show_remaining_energy
-                                            ? '319'
-                                            : '310'
-                            }"
+            ? '326'
+            : !config.battery.show_remaining_energy
+                ? '319'
+                : '310'
+        }"
                             r="3.5"
                             display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || !config.show_battery ? 'none' : ''}"
                             fill="${data.batteryStateColour}"/>
@@ -468,9 +468,20 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </animateMotion>
                         </circle>
                     </svg>
-                    <path id="es-load1" d="M 441 180 L 441 147" class="${data.additionalLoad === 1 ? '' : 'st12'}"
-                          fill="none" stroke="${data.essLoad1Colour}" stroke-width="1" stroke-miterlimit="10"
-                          pointer-events="stroke"/>
+                    <!-- SVG tag below added by Gary to get animated blobs on Eddi line -->
+                    <svg id="es-load1-flow">
+                        <path id="es-load1-line1" d="M 441 180 L 441 147" class="${data.additionalLoad === 1 ? '' : 'st12'}"
+                        fill="none" stroke="${data.essLoad1Colour}" stroke-width="${data.essLoad1LineWidth}" stroke-miterlimit="10"
+                        pointer-events="stroke"/>
+                        <circle id="es1-dot" cx="0" cy="0" r="${2 + data.essLoad1LineWidth}"
+                                fill="${data.essLoad1Colour === data.gridOffColour || data.stateEssentialLoad1?.toPower() < 10 ? 'transparent' : `${data.essLoad1Colour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                        keyPoints="0;1"
+                                        keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-load1-line1"/>
+                            </animateMotion>
+                        </circle>
+                    </svg>
                     <path id="es-load1" d="M 441 180 L 441 147"
                           class="${[2, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                           stroke="${data.essLoad1Colour}" stroke-width="1" stroke-miterlimit="10"
@@ -853,7 +864,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_voltage_183)}>
                         <text id="battery_voltage_183" x="193" y="346"
                               display="${config.entities.battery_voltage_183 === 'none'
-                              || !config.entities.battery_voltage_183 || !config.show_battery || data.compactMode ? 'none' : ''}"
+            || !config.entities.battery_voltage_183 || !config.show_battery || data.compactMode ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${data.batteryVoltage} ${UnitOfElectricPotential.VOLT}
                         </text>
@@ -861,7 +872,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_voltage_183)}>
                         <text id="battery_voltage_183" x="281" y="299"
                               display="${config.entities.battery_voltage_183 === 'none'
-                              || !config.entities.battery_voltage_183 || !config.show_battery || !data.compactMode ? 'none' : ''}"
+            || !config.entities.battery_voltage_183 || !config.show_battery || !data.compactMode ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.compactMode ? 'st3 left-align' : 'st12'}">
                             ${data.batteryVoltage} ${UnitOfElectricPotential.VOLT}
                         </text>
@@ -878,10 +889,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               fill=${data.batteryColour}
                               class="st13 st8 left-align"
                               display="${data.inverterProg.show === false
-                              || config.entities.battery_soc_184 === 'none'
-                              || !config.show_battery
-                              || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
-                              || config.battery.hide_soc ? 'none' : ''}">
+            || config.entities.battery_soc_184 === 'none'
+            || !config.show_battery
+            || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
+            || config.battery.hide_soc ? 'none' : ''}">
                             | ${data.inverterProg.capacity || 0} %
                         </text>
                     </a>
@@ -890,7 +901,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
-                                      ? '' : 'none'}">
+            ? '' : 'none'}">
                             | ${data.batteryShutdown || 0} %
                         </text>
                     </a>
@@ -908,14 +919,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${config.battery.auto_scale
-                                    ? `${config.battery.show_absolute
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
-                                    : `${config.battery.show_absolute
-                                            ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
-                                            : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
-                                    }`
-                            }
+            ? `${config.battery.show_absolute
+                ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
+                : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
+            : `${config.battery.show_absolute
+                ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
+                : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
+            }`
+        }
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_current_191)}>
