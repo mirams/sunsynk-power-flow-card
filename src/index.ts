@@ -285,14 +285,25 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let gridColour: string;
         switch (true) {
-            case totalGridPower < 0:
+            case totalGridPower < -50: // altered by Gary to make anything under 50W grey
                 gridColour = gridExportColour;
                 break;
-            case totalGridPower === 0:
+            case totalGridPower < 50:  // altered by Gary to make anything under 50W grey
                 gridColour = noGridColour;
                 break;
             default:
                 gridColour = gridImportColour;
+                break;
+        }
+
+        // Added by Gary to grey out the Eddi when it's not in use
+        let essLoad1Colour: string;
+        switch (true) {
+            case stateEssentialLoad1.toPower() > 10:
+                essLoad1Colour = loadColour;
+                break;
+            default:
+                essLoad1Colour = noGridColour;
                 break;
         }
 
@@ -739,6 +750,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         let nonessLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(nonessentialPower), (config.grid.max_power || Math.abs(nonessentialPower)), maxLineWidth, minLineWidth);
         let solarLineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(totalPV, (config.solar.max_power || totalPV), maxLineWidth, minLineWidth);
 
+        // Added by Gary to show dynamic line width to Eddi
+        let essLoad1LineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(stateEssentialLoad1.toPower()), (config.load.max_power || Math.abs(stateEssentialLoad1.toPower())), maxLineWidth, minLineWidth);
+
+
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
             const speed =
@@ -1034,6 +1049,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridStatus,
             batteryCharge,
             gridOffColour,
+            essLoad1Colour,
+            essLoad1LineWidth,
             batteryIcon,
             formattedResultTime,
             showAux,

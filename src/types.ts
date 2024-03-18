@@ -346,6 +346,8 @@ export interface DataDto {
     gridStatus,
     batteryCharge,
     gridOffColour,
+    essLoad1Colour,
+    essLoad1LineWidth,
     batteryIcon,
     formattedResultTime,
     showAux,
