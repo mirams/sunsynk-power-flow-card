@@ -22,7 +22,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                 ${config.title ? html`<h1
                         style="text-align: center; color: ${config.title_colour || 'inherit'}; data.largeFont-size: ${config.title_size || '32px'};">
                     ${config.title}</h1>` : ''}
-                <svg viewBox="-0.5 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : -0.5} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? (data.additionalLoad === 2 ? 350 : 300) : 406)}"
+                <svg viewBox="-0.5 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : 48} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? (data.additionalLoad === 2 ? 350 : 300) : 358)}"
                      preserveAspectRatio="xMidYMid meet"
                      height="${data.panelMode === false ? `${!config.show_solar && !config.show_battery ? '270px' : !config.show_solar ? (data.additionalLoad !== 0 ? '330px' : '246px') : config.show_solar && !config.show_battery ? (data.additionalLoad === 2 ? '350px' : '300px') : `${data.cardHeight}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
                      width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
@@ -135,7 +135,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                         ${localize('common.daily_solar')}
                     </text>
-                    <text id="remaining_solar" x="200" y="40" class="st3 left-align"
+                    <text id="remaining_solar" x="333" y="79" class="st3 left-align"
                           display="${config.solar.display_mode === 2 ? '' : 'none'}"
                           fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                         ${localize('common.daily_solar_left')}
@@ -149,7 +149,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
                         ${config.solar.pv1_name}
                     </text>
-                    <text x="264" y="94" class="st3 st8"
+                    <text x="260" y="94" class="st3 st8"
                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv2_name}
                     </text>
@@ -600,7 +600,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </foreignObject>
                     </g>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40"
+                    <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="110" y="50" width="40" height="40"
                          viewBox="0 0 24 24">
                         <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
                               d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/>
@@ -793,7 +793,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
-                        <text id="remaining_solar_value" x="200" y="26" class="st10 left-align"
+                        <text id="remaining_solar_value" x="333" y="64" class="st10 left-align"
                               display="${config.solar.display_mode === 2 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                             ${data.stateDayPVEnergy?.toPowerString(true, 1) + ' / ' + data.remainingSolar}
@@ -1074,7 +1074,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.environment_temp)}>
-                        <text id="environ_temp" x="154" y="45"
+                        <text id="environ_temp" x="110" y="88"
                               class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
                               fill="${data.solarColour}"
                               display="${!config.show_solar || !data.stateEnvironmentTemp.isValid() ? 'none' : ''}">
