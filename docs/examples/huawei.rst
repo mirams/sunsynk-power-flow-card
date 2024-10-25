@@ -3,6 +3,7 @@
 ##################
 
 .. note::
+   There will be a major update of the 'derived' sensors available with the release of the WLCRS Huawei Integration v1.4.0 that is currently in Alpha testing. A number of derived sensors will be released by factory/Huawei sensors instead.
 
    Please report all feedback or Issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card.
 
@@ -102,12 +103,12 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
-  title_colour: White
   title_size: 18px
   show_solar: true
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -140,6 +141,10 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 3300
+    pv2_max_power: 3300
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -214,6 +219,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_1_pv_1_power
     pv2_power_187: sensor.inverter_1_pv_2_power
+    pv_total: sensor.inverters_input_power
     environment_temp: sensor.<your_location>_temp
     remaining_solar: sensor.energy_production_today_remaining
     pv1_voltage_109: sensor.inverter_pv_1_voltage
@@ -262,12 +268,12 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
   panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
-  title_colour: White
   title_size: 18px
   show_solar: true
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   inverter:
     modern: false
     colour: grey
@@ -300,6 +306,13 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     pv3_name: Inv1.S2
     pv4_name: Inv2.S2
     display_mode: 2
+    auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 3300
+    pv2_max_power: 3300
+    pv3_max_power: 3300
+    pv4_max_power: 3300
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -375,6 +388,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     pv2_power_187: sensor.inverter_1_pv_2_power
     pv3_power_188: sensor.inverter_2_pv_1_power
     pv4_power_189: sensor.inverter_2_pv_2_power
+    pv_total: sensor.inverters_input_power
     environment_temp: sensor.<your_location>_temp
     remaining_solar: sensor.energy_production_today_remaining
     pv1_voltage_109: sensor.inverter_pv_1_voltage
@@ -428,12 +442,12 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
-  title_colour: White
   title_size: 18px
   show_solar: true
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -466,6 +480,10 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -544,6 +562,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_1_pv_1_power
     pv2_power_187: sensor.inverter_1_pv_2_power
+    pv_total: sensor.inverters_input_power
     environment_temp: sensor.<your_location>_temp
     remaining_solar: sensor.energy_production_today_remaining
     pv1_voltage_109: sensor.inverter_pv_1_voltage
@@ -597,12 +616,12 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
   panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
-  title_colour: White
   title_size: 18px
   show_solar: true
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -635,6 +654,10 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -715,6 +738,7 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     pv2_power_187: sensor.inverter_1_pv_2_power
     pv3_power_188: sensor.inverter_2_pv_1_power
     pv4_power_189: sensor.inverter_2_pv_2_power
+    pv_total: sensor.inverters_input_power
     environment_temp: sensor.<your_location>_temp
     remaining_solar: sensor.energy_production_today_remaining
     pv1_voltage_109: sensor.inverter_pv_1_voltage
@@ -767,12 +791,12 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
   panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
-  title_colour: White
   title_size: 18px
   show_solar: true
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -807,6 +831,12 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     pv4_name: Inv2.S2
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    pv3_max_power: 5000
+    pv4_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -889,6 +919,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     pv2_power_187: sensor.inverter_1_pv_2_power
     pv3_power_188: sensor.inverter_2_pv_1_power
     pv4_power_189: sensor.inverter_2_pv_2_power
+    pv_total: sensor.inverters_input_power
     environment_temp: sensor.<your_location>_temp
     remaining_solar: sensor.energy_production_today_remaining
     pv1_voltage_109: sensor.inverter_pv_1_voltage

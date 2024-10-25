@@ -53,11 +53,18 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         ...entity,
         toNum: (decimals?: number, invert?: boolean) => Utils.toNum(entity?.state, decimals, invert),
         isValid: () => entity?.state !== null && entity.state !== undefined && entity.state !== 'unknown' || false,
-        notEmpty: () => entity?.state !== '' || false,
-        isNaN: () => Number.isNaN(entity?.state) || true,
-        toPower: (invert?: boolean) => (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-            ? Utils.toNum(((entity?.state || '0') * 1000), 0, invert)
-            : Utils.toNum((entity?.state || '0'), 0, invert) || 0,
+        notEmpty: () => (entity?.state !== '' && entity?.state !== null && entity?.state !== 'unknown' && entity.state !== undefined)  || false,
+        isNaN: () => entity?.state === null || Number.isNaN(entity?.state),
+        toPower: (invert?: boolean) => {
+            const unit = (entity.attributes?.unit_of_measurement || '').toLowerCase();
+            if (unit === 'kw' || unit === 'kwh') {
+                return Utils.toNum(((entity?.state || '0') * 1000), 0, invert);
+            } else if (unit === 'mw' || unit === 'mwh') {
+                return Utils.toNum(((entity?.state || '0') * 1000000), 0, invert);
+            } else {
+                return Utils.toNum((entity?.state || '0'), 0, invert) || 0;
+            }
+        },
         toPowerString: (scale?: boolean, decimals?: number, invert?: boolean) =>
             scale ?
                 Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 0) :

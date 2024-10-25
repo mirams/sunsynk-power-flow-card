@@ -2,12 +2,16 @@ import {version} from '../package.json';
 
 export const CARD_VERSION = version;
 
-export const validLoadValues = [0, 1, 2, 4]
+export const validLoadValues = [0, 1, 2, 3, 4]
 export const validnonLoadValues = [0, 1, 2, 3]
 export const valid3phase = [true, false]
 export const validaux = [true, false]
+export const validauxLoads = [0, 1, 2]
 export const validGridDisconnected = ['off', '0', 'off-grid', 'off grid', 'offgrid']
 export const validGridConnected = ['on', '1', 'on-grid', 'on grid', 'ongrid']
+
+export const EDITOR_NAME = 'sunsynk-content-card-editor';
+export const MAIN_NAME = 'sunsynk-power-flow-card';
 
 export const enum SensorDeviceClass {
     DATE = "date",

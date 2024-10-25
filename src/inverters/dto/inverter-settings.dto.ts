@@ -10,7 +10,7 @@ export class InverterSettingsDto {
     constructor() {
     }
 
-    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC) {
+    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC, maxsoc: number) {
         let batteryCapacity = 0;
         if (batteryPower > 0) {
             if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) <= inverterProg.capacity) {
@@ -20,7 +20,7 @@ export class InverterSettingsDto {
             }
         } else if (batteryPower < 0) {
             if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) >= inverterProg.capacity) {
-                batteryCapacity = 100;
+                batteryCapacity = maxsoc;
             } else if (parseInt(stateBatterySOC.state) < inverterProg.capacity) {
                 batteryCapacity = inverterProg.capacity;
             }
@@ -54,7 +54,20 @@ export enum InverterStatuses {
     Flash = 'flash',
     Offline = 'offline',
     Running = 'running',
-    SleepMode = 'sleepmode'
+    SleepMode = 'sleepmode',
+    Off = 'off',
+    LowPower = 'lowpower',
+    Bulk = 'bulk',
+    Absorption = 'absorption',
+    Float = 'float',
+    Storage = 'storage',
+    Equalize = 'equalize',
+    Passthru = 'passthru',
+    Inverting = 'inverting',
+    PowerAssist = 'powerassist',
+    PowerSupply = 'powersupply',
+    Sustain = 'sustain',
+    ExternalControl = 'externalcontrol'
 }
 
 export interface InverterStatusConfig {

@@ -7,6 +7,7 @@ import {GoodweGrid} from './brands/goodwe-grid';
 import {FoxESS} from './brands/fox-ess';
 import {Huawei} from './brands/huawei';
 import {Fronius} from './brands/fronius';
+import {PowMr} from './brands/powmr';
 import {Victron} from './brands/victron';
 import {Solax} from './brands/solax';
 import {Growatt} from './brands/growatt';
@@ -14,6 +15,13 @@ import {Sofar} from './brands/sofar';
 import {Sunsynk} from './brands/sunsynk';
 import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
+import {Deye} from './brands/deye';
+import {Azzurro} from './brands/azzurro';
+import {MPPSolar} from './brands/mpp-solar';
+import {SMASolar} from './brands/sma-solar';
+import {E3dc} from './brands/e3dc';
+
+
 
 export class InverterFactory {
     static instance: InverterSettingsDto;
@@ -27,6 +35,8 @@ export class InverterFactory {
 
     private static createInstance(brand: InverterModel): InverterSettingsDto {
         switch (brand) {
+            case InverterModel.Azzurro:
+                return new Azzurro();
             case InverterModel.Solis:
                 return new Solis();
             case InverterModel.Lux:
@@ -35,6 +45,8 @@ export class InverterFactory {
                 return new Goodwe()
             case InverterModel.GoodweGridMode:
                 return new GoodweGrid()
+            case InverterModel.E3dc:
+                return new E3dc()
             case InverterModel.FoxESS:
                 return new FoxESS()
             case InverterModel.Huawei:
@@ -53,6 +65,14 @@ export class InverterFactory {
                 return new CesBatteryBox();
             case InverterModel.SolarEdge:
                 return new SolarEdge();
+            case InverterModel.Deye:
+                return new Deye();
+            case InverterModel.PowMr:
+                return new PowMr();
+            case InverterModel.MPPSolar:
+                return new MPPSolar();
+            case InverterModel.SMASolar:
+                return new SMASolar();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
