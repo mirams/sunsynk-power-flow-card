@@ -26,6 +26,7 @@ export enum InverterModel {
 	SolarEdge = 'solaredge',
 	Sofar = 'sofar',
 	Solis = 'solis',
+	Sungrow = `sungrow`,
 	Sunsynk = 'sunsynk',
 	Victron = 'victron',
 }
@@ -88,6 +89,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		animate: boolean;
 		path_threshold: number;
 		navigate: string;
+		invert_flow: boolean;
 	};
 	solar: {
 		colour: string;
@@ -109,6 +111,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		efficiency: number;
 		off_threshold: number;
 		navigate: string;
+		invert_flow: boolean;
 	};
 	load: {
 		colour: string;
@@ -147,6 +150,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		essential_name: string;
 		path_threshold: number;
 		navigate: string;
+		invert_flow: boolean;
+		label_daily_load: string;
 	};
 	grid: {
 		colour: string;
@@ -179,6 +184,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		export_icon: string;
 		disconnected_icon: string;
 		navigate: string;
+		invert_flow: boolean;
 	};
 	entities: CardConfigEntities;
 }
